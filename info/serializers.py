@@ -18,9 +18,11 @@ class EditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = info_models.Edition
         fields = '__all__'
+        ref_name = 'info_edition'
 
 
 class ResourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = info_models.Resource
         fields = '__all__'
+        ref_name = 'info_resource'

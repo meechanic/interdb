@@ -30,7 +30,7 @@ class ApiProgInfo(viewsets.ModelViewSet):
     API endpoint that represents a list of objects.
     """
     queryset = inter_models.ProgInfo.objects.all()
-    serializer_class = inter_serializers.InfsourceSerializer
+    serializer_class = inter_serializers.ProgInfoSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filter_fields=('name',)
-    search_fields=('name',)
+    filter_fields=('prog_package', 'info_infsource')
+    search_fields=('prog_package', 'info_infsource')
