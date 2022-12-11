@@ -20,6 +20,7 @@ def api_root(request, format=None):
     """
     return Response({
         'proginfos': reverse('proginfo', request=request),
+        'infoinfos': reverse('infoinfo', request=request),
     })
 
 
@@ -34,3 +35,16 @@ class ApiProgInfo(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields=('prog_package', 'info_infsource')
     search_fields=('prog_package', 'info_infsource')
+
+
+@authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
+class ApiInfoInfo(viewsets.ModelViewSet):
+    """
+    API endpoint that represents a list of objects.
+    """
+    queryset = inter_models.InfoInfo.objects.all()
+    serializer_class = inter_serializers.InfoInfoSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_fields=('first_info_infsource', 'second_info_infsource')
+    search_fields=('first_info_infsource', 'second_info_infsource')

@@ -30,7 +30,7 @@ class Infsource(models.Model):
 class InfsourceTag(models.Model):
     key = models.TextField()
     value = models.TextField()
-    infsource = models.ForeignKey(Infsource, blank=True, null=True, related_name='infsourcetag_package', on_delete=models.CASCADE, )
+    infsource = models.ForeignKey(Infsource, related_name='infsourcetag_infsource', on_delete=models.CASCADE, )
 
     def __str__(self):
         return ' '.join([self.key, self.value])
@@ -53,7 +53,7 @@ class Edition(models.Model):
     edition_number = models.TextField(blank=True)
     publisher = models.TextField(blank=True)
     publishing_time = models.TextField(blank=True)
-    infsource = models.ForeignKey(Infsource, blank=True, null=True, related_name='edition_infsource', on_delete=models.CASCADE,)
+    infsource = models.ForeignKey(Infsource, related_name='edition_infsource', on_delete=models.CASCADE,)
 
     def __str__(self):
         return self.name
@@ -81,7 +81,7 @@ class Resource(models.Model):
     collection = models.TextField(blank=True)
     subcollection = models.TextField(blank=True)
     is_source = models.BooleanField(default=False)
-    edition = models.ForeignKey(Edition, blank=True, null=True, related_name='resource_edition', on_delete=models.CASCADE,)
+    edition = models.ForeignKey(Edition, related_name='resource_edition', on_delete=models.CASCADE,)
 
     def __str__(self):
         return self.text

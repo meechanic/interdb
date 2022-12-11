@@ -21,3 +21,21 @@ class ProgInfo(models.Model):
 
     class Meta:
         ordering = ['prog_package', 'info_infsource', 'connection_kind']
+
+
+class InfoInfo(models.Model):
+    first_info_infsource = models.ForeignKey(info_models.Infsource, blank=False, related_name='first_info_infsource', on_delete=models.CASCADE,)
+    second_info_infsource = models.ForeignKey(info_models.Infsource, blank=False, related_name='second_info_infsource', on_delete=models.CASCADE,)
+    connection_kind = models.TextField(blank=True)
+
+    def __str__(self):
+        return ' '.join([self.first_info_infsource.name, self.second_info_infsource.name, self.connection_kind])
+
+    def __unicode__(self):
+        return self.__str__()
+
+    def get_absolute_url(self):
+        return reverse('info-info-view', kwargs={'pk': self.id})
+
+    class Meta:
+        ordering = ['first_info_infsource', 'second_info_infsource', 'connection_kind']

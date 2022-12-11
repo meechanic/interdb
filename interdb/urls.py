@@ -56,6 +56,7 @@ router.register(r'prog-packagetags', prog_views.ApiPackageTag)
 router.register(r'prog-editions', prog_views.ApiEdition)
 router.register(r'prog-resources', prog_views.ApiResource)
 router.register(r'inter-proginfos', inter_views.ApiProgInfo)
+router.register(r'inter-infoinfos', inter_views.ApiInfoInfo)
 
 admin.site.site_header = 'InterDB'
 admin.site.index_title = 'Administration'

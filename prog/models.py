@@ -29,7 +29,7 @@ class Package(models.Model):
 class PackageTag(models.Model):
     key = models.TextField()
     value = models.TextField()
-    package = models.ForeignKey(Package, blank=True, null=True, related_name='packagetag_package', on_delete=models.CASCADE, )
+    package = models.ForeignKey(Package, related_name='packagetag_package', on_delete=models.CASCADE, )
 
     def __str__(self):
         return ' '.join([self.key, self.value])
@@ -51,7 +51,7 @@ class Edition(models.Model):
     human_description = models.TextField(blank=True)
     machine_description = models.TextField(blank=True)
     edition_number = models.TextField(blank=True)
-    package = models.ForeignKey(Package, blank=True, null=True, related_name='edition_package', on_delete=models.CASCADE,)
+    package = models.ForeignKey(Package, related_name='edition_package', on_delete=models.CASCADE,)
 
     def __str__(self):
         return self.name
@@ -80,7 +80,7 @@ class Resource(models.Model):
     subcollection = models.TextField(blank=True)
     is_installation = models.BooleanField(default=False)
     is_source = models.BooleanField(default=False)
-    edition = models.ForeignKey(Edition, blank=True, null=True, related_name='resource_edition', on_delete=models.CASCADE,)
+    edition = models.ForeignKey(Edition, related_name='resource_edition', on_delete=models.CASCADE,)
 
     def __str__(self):
         return self.text

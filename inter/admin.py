@@ -11,7 +11,17 @@ class ProgInfoResource(resources.ModelResource):
         model = inter_models.ProgInfo
 
 
-
 @admin.register(inter_models.ProgInfo)
 class CategoryAdmin(ImportExportModelAdmin):
     resource_class = ProgInfoResource
+
+
+class InfoInfoResource(resources.ModelResource):
+
+    class Meta:
+        model = inter_models.InfoInfo
+
+
+@admin.register(inter_models.InfoInfo)
+class CategoryAdmin(ImportExportModelAdmin):
+    resource_class = InfoInfoResource
