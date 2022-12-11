@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = 'my)m32h4)v!^@-(gd%36)ew==f5zto9!54u65^rwi%(&5%_e7k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'import_export',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    'drf_yasg',
+    'info',
+    'prog',
+    'inter',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +89,8 @@ DATABASES = {
     }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -117,4 +128,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_ROOT = os.environ['SROOT']
+FORCE_SCRIPT_NAME = os.environ['FSN']
+STATIC_URL = FORCE_SCRIPT_NAME + '/static/'
+LOGIN_REDIRECT_URL = FORCE_SCRIPT_NAME + '/'
+LOGOUT_REDIRECT_URL = FORCE_SCRIPT_NAME + '/'
+
+# following the Quickstart here https://www.django-rest-framework.org/coreapi/schemas/
+# python manage.py generateschema > schema.yml
+# Got AttributeError: 'ManualSchema' object has no attribute 'get_operation'
+# Try to fix due to https://stackoverflow.com/questions/58742948/rest-framework-swagger-autoschema-object-has-no-attribute-get-link
+# Also: https://github.com/encode/django-rest-framework/issues/6868
+REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema' }
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
