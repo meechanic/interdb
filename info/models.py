@@ -81,6 +81,7 @@ class Resource(models.Model):
     collection = models.TextField(blank=True)
     subcollection = models.TextField(blank=True)
     is_source = models.BooleanField(default=False)
+    kind = models.TextField(blank=True)
     edition = models.ForeignKey(Edition, related_name='resource_edition', on_delete=models.CASCADE,)
 
     def __str__(self):
