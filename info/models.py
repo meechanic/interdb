@@ -13,6 +13,7 @@ class Infsource(models.Model):
     supercategory = models.TextField(blank=True)
     category = models.TextField(blank=True)
     subcategory = models.TextField(blank=True)
+    license_type = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
